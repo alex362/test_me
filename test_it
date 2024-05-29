@@ -20,9 +20,10 @@ def process_csv(file_path):
 
     with open(file_path, mode='r', newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
+        headers = [header.strip() for header in reader.fieldnames]
         
         for row in reader:
-            if all(col in row for col in selected_columns):
+            if all(col in headers for col in selected_columns):
                 communication = row['Communication']
                 keyword_info, latest_date = parse_communication_field(communication)
                 
